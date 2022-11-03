@@ -13,6 +13,8 @@ class OnlineshopActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOnlineshopBinding
     var product = OnlineshopModel()
 
+    val products = ArrayList<OnlineshopModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -25,12 +27,15 @@ class OnlineshopActivity : AppCompatActivity() {
 
         binding.btnAdd.setOnClickListener() {
             product.name = binding.productName.text.toString()
-            if (product.name.isNotEmpty()) {
-                i("add Button Pressed: $product.name")
+            product.id = binding.productId.text.toString().toInt()
+            if (product.name.isNotEmpty() && product.id.toString().isNotEmpty()) {
+                products.add(product)
+                println(products.get(0))
+                i("add Button Pressed: $product.name $product.id")
             }
             else {
                 Snackbar
-                    .make(it,"Please Enter a Product Name", Snackbar.LENGTH_LONG)
+                    .make(it,"Please Fill All Text Fields", Snackbar.LENGTH_LONG)
                     .show()
             }
         }
