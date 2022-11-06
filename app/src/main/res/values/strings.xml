@@ -3,4 +3,5 @@
     <string name="button_addProduct">Add Product</string>
     <string name="hint_productName">Product Name</string>
     <string name="hint_productId">Product ID</string>
+    <string name="menu_addProduct">Add Product</string>
 </resources>
