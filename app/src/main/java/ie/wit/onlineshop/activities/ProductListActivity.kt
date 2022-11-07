@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ie.wit.onlineshop.R
+import ie.wit.onlineshop.adapters.OnlineshopAdapter
 import ie.wit.onlineshop.databinding.ActivityProductListBinding
 import ie.wit.onlineshop.databinding.CardProductBinding
 import ie.wit.onlineshop.main.MainApp
@@ -64,29 +65,3 @@ class ProductListActivity : AppCompatActivity() {
 
     }
 
-class OnlineshopAdapter constructor(private var products: List<OnlineshopModel>) :
-    RecyclerView.Adapter<OnlineshopAdapter.MainHolder>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
-        val binding = CardProductBinding
-            .inflate(LayoutInflater.from(parent.context), parent, false)
-
-        return MainHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: MainHolder, position: Int) {
-        val product = products[holder.adapterPosition]
-        holder.bind(product)
-    }
-
-    override fun getItemCount(): Int = products.size
-
-    class MainHolder(private val binding : CardProductBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(product: OnlineshopModel) {
-            binding.productName.text = product.name
-            binding.description.text = product.id.toString()
-        }
-    }
-}
