@@ -1,3 +1,9 @@
 package ie.wit.onlineshop.models
 
-data class OnlineshopModel(var name: String = "", var id: Int = 0)
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class OnlineshopModel(var id: Long = 0,
+                           var name: String = "",
+                           var price: Double = 0.0) : Parcelable

@@ -56,13 +56,13 @@
 
 
                 <EditText
-                    android:id="@+id/productId"
+                    android:id="@+id/productPrice"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_margin="8dp"
                     android:autofillHints="hint"
-                    android:hint="@string/hint_productId"
-                    android:inputType="number"
+                    android:hint="@string/hint_productPrice"
+                    android:inputType="numberDecimal"
                     android:maxLength="25"
                     android:maxLines="1"
                     android:padding="8dp"

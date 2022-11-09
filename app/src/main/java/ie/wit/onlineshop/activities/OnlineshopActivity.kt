@@ -27,21 +27,24 @@ class OnlineshopActivity : AppCompatActivity() {
 
         app = application as MainApp
         i("Onlineshop Activity started...")
+
+        if (intent.hasExtra("product_edit")) {
+            product = intent.extras?.getParcelable("product_edit")!!
+            binding.productName.setText(product.name)
+            //binding.productId.setText(product.id)
+            binding.productPrice.setText(product.price.toString())
+        }
+
         binding.btnAdd.setOnClickListener() {
             product.name = binding.productName.text.toString()
-            product.id = binding.productId.text.toString().toInt()
-            if (product.name.isNotEmpty() && product.id.toString().isNotEmpty()) {
-            // if (product.name.isNotEmpty()) {
-                app.products.add(product.copy())
-                i("add Button Pressed: ${product}")
-                for (i in app.products.indices) {
-                    i("Product[$i]:${this.app.products[i]}")
-                }
+            product.price = binding.productPrice.text.toString().toDouble()
+            if (product.name.isNotEmpty()) {
+                app.products.create(product.copy())
                 setResult(RESULT_OK)
                 finish()
             }
             else {
-                Snackbar.make(it,"Please Fill All Required Text Fields", Snackbar.LENGTH_LONG)
+                Snackbar.make(it,"Please Enter a title", Snackbar.LENGTH_LONG)
                     .show()
             }
         }

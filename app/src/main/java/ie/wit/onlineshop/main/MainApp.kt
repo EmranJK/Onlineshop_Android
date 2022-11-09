@@ -1,13 +1,15 @@
 package ie.wit.onlineshop.main
 
 import android.app.Application
+import ie.wit.onlineshop.models.OnlineshopMemStore
 import ie.wit.onlineshop.models.OnlineshopModel
 import timber.log.Timber
 import timber.log.Timber.i
 
 class MainApp : Application(){
 
-    val products = ArrayList<OnlineshopModel>()
+    //val products = ArrayList<OnlineshopModel>()
+    val products = OnlineshopMemStore()
 
     override fun onCreate() {
         super.onCreate()

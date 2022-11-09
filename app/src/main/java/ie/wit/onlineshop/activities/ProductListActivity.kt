@@ -13,12 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ie.wit.onlineshop.R
 import ie.wit.onlineshop.adapters.OnlineshopAdapter
+import ie.wit.onlineshop.adapters.OnlineshopListener
 import ie.wit.onlineshop.databinding.ActivityProductListBinding
 import ie.wit.onlineshop.databinding.CardProductBinding
 import ie.wit.onlineshop.main.MainApp
 import ie.wit.onlineshop.models.OnlineshopModel
 
-class ProductListActivity : AppCompatActivity() {
+class ProductListActivity : AppCompatActivity(), OnlineshopListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityProductListBinding
@@ -34,7 +35,8 @@ class ProductListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = OnlineshopAdapter(app.products)
+        //binding.recyclerView.adapter = OnlineshopAdapter(app.products)
+        binding.recyclerView.adapter = OnlineshopAdapter(app.products.findAll(),this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -52,13 +54,30 @@ class ProductListActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onProductClick(product: OnlineshopModel) {
+        val launcherIntent = Intent(this, OnlineshopActivity::class.java)
+        launcherIntent.putExtra("product_edit", product)
+        getClickResult.launch(launcherIntent)
+    }
+
+    private val getClickResult =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                (binding.recyclerView.adapter)?.
+                notifyItemRangeChanged(0,app.products.findAll().size)
+            }
+        }
+
     private val getResult =
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
                 (binding.recyclerView.adapter)?.
-                notifyItemRangeChanged(0,app.products.size)
+                //notifyItemRangeChanged(0,app.products.size)
+                notifyItemRangeChanged(0,app.products.findAll().size)
             }
         }
 
