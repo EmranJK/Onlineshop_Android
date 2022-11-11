@@ -69,6 +69,32 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp" />
 
+
+                <EditText
+                    android:id="@+id/productBrand"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_margin="8dp"
+                    android:autofillHints="hint"
+                    android:hint="@string/hint_productBrand"
+                    android:inputType="text"
+                    android:maxLength="25"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp" />
+
+
+                <Spinner
+                    android:id="@+id/productType"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_margin="8dp"
+                    android:padding="8dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp" />
+
+
                 <Button
                     android:id="@+id/btnAdd"
                     android:layout_width="match_parent"

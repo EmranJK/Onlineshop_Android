@@ -26,6 +26,8 @@ class OnlineshopMemStore : OnlineshopStore {
         if (foundProduct != null) {
             foundProduct.name = product.name
             foundProduct.price = product.price
+            foundProduct.brand = product.brand
+            foundProduct.type = product.type
             logAll()
         }
     }

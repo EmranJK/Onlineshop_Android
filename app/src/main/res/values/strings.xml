@@ -5,4 +5,10 @@
     <string name="hint_productPrice">Product Price</string>
     <string name="menu_addProduct">Add Product</string>
     <string name="menu_cancelProduct">Cancel</string>
+    <string name="hint_productBrand">Enter Brand</string>
+    <string name="hint_productType">Enter Type</string>
+    <string-array name="productTypes">
+        <item> Food </item>
+        <item> Drink </item>
+    </string-array>
 </resources>

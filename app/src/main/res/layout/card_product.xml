@@ -27,5 +27,19 @@
             android:layout_below="@id/productName"
             tools:text="ID" />
 
+        <TextView
+            android:id="@+id/productBrand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/productPrice"
+            tools:text="Brand" />
+
+        <TextView
+            android:id="@+id/productType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/productBrand"
+            tools:text="Type" />
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

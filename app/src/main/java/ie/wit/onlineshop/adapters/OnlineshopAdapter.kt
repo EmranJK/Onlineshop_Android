@@ -34,6 +34,8 @@ class OnlineshopAdapter constructor(private var products: List<OnlineshopModel>,
         fun bind(product: OnlineshopModel, listener: OnlineshopListener) {
             binding.productName.text = product.name
             binding.productPrice.text = product.price.toString()
+            binding.productBrand.text = product.brand
+            binding.productType.text = product.type
             // product.name = binding.productName.text.toString()
             // product.id = binding.productId.text.toString().toInt()
             binding.root.setOnClickListener { listener.onProductClick(product) }
