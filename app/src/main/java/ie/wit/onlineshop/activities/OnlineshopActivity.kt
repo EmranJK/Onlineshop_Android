@@ -24,6 +24,7 @@ class OnlineshopActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        var edit = false
         binding = ActivityOnlineshopBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -57,6 +58,7 @@ class OnlineshopActivity : AppCompatActivity() {
         }
 
         if (intent.hasExtra("product_edit")) {
+            edit = true
             product = intent.extras?.getParcelable("product_edit")!!
             binding.productName.setText(product.name)
             binding.productBrand.setText(product.brand)
@@ -64,6 +66,7 @@ class OnlineshopActivity : AppCompatActivity() {
             binding.productType.setSelection(ptypes.indexOf(product.type))
             //binding.productId.setText(product.id)
             binding.productPrice.setText(product.price.toString())
+            binding.btnAdd.setText(R.string.save_product)
 
         }
 
@@ -73,15 +76,19 @@ class OnlineshopActivity : AppCompatActivity() {
             product.brand = binding.productBrand.text.toString()
             //product.type = binding.productType.text.toString()
             product.type = chosenProductType
-            if (product.name.isNotEmpty()) {
-                app.products.create(product.copy())
-                setResult(RESULT_OK)
-                finish()
-            }
-            else {
-                Snackbar.make(it,"Please Enter a title", Snackbar.LENGTH_LONG)
+            if (product.name.isEmpty()) {
+                Snackbar.make(it,R.string.enter_product_name, Snackbar.LENGTH_LONG)
                     .show()
             }
+            else {
+                if (edit) {
+                    app.products.update(product.copy())
+                } else {
+                    app.products.create(product.copy())
+                }
+            }
+            setResult(RESULT_OK)
+            finish()
         }
     }
 
