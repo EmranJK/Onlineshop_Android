@@ -17,7 +17,7 @@
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
+            android:background="@drawable/gradient3"
             android:fitsSystemWindows="true"
             app:elevation="0dip"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -33,6 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/appBarLayout"
+            android:background="@drawable/gradient1"
             android:fillViewport="true">
 
             <LinearLayout
@@ -100,7 +101,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:background="@color/colorAccent"
+                    android:background="@drawable/gradient2"
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
                     android:stateListAnimator="@null"
