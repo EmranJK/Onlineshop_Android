@@ -1,5 +1,6 @@
 package ie.wit.onlineshop.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -9,9 +10,13 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 import ie.wit.onlineshop.R
 import ie.wit.onlineshop.databinding.ActivityOnlineshopBinding
+import ie.wit.onlineshop.helpers.showImagePicker
 import ie.wit.onlineshop.main.MainApp
 import ie.wit.onlineshop.models.OnlineshopModel
 import timber.log.Timber
@@ -21,12 +26,15 @@ class OnlineshopActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOnlineshopBinding
     var product = OnlineshopModel()
     lateinit var app: MainApp
+    private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var edit = false
         binding = ActivityOnlineshopBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        registerImagePickerCallback()
 
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
@@ -67,7 +75,9 @@ class OnlineshopActivity : AppCompatActivity() {
             //binding.productId.setText(product.id)
             binding.productPrice.setText(product.price.toString())
             binding.btnAdd.setText(R.string.save_product)
-
+            Picasso.get()
+                .load(product.image)
+                .into(binding.productImage)
         }
 
         binding.btnAdd.setOnClickListener() {
@@ -90,11 +100,34 @@ class OnlineshopActivity : AppCompatActivity() {
             setResult(RESULT_OK)
             finish()
         }
+        binding.chooseImage.setOnClickListener {
+            //i("Select image")
+            showImagePicker(imageIntentLauncher)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_product, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    private fun registerImagePickerCallback() {
+        imageIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when(result.resultCode){
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            i("Got Result ${result.data!!.data}")
+                            product.image = result.data!!.data!!
+                            Picasso.get()
+                                .load(product.image)
+                                .into(binding.productImage)
+                        } // end of if
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

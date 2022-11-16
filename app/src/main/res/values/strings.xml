@@ -9,6 +9,8 @@
     <string name="hint_productType">Enter Type</string>
     <string name="enter_product_name"> Please Enter a Product Name </string>
     <string name="save_product"> Save Product </string>
+    <string name="button_addImage"> Add Image </string>
+    <string name="select_product_image">Select Product Image</string>
 
     <string-array name="productTypes">
         <item> Food </item>
