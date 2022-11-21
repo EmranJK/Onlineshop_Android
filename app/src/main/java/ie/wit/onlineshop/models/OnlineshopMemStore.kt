@@ -28,8 +28,13 @@ class OnlineshopMemStore : OnlineshopStore {
             foundProduct.price = product.price
             foundProduct.brand = product.brand
             foundProduct.type = product.type
+            foundProduct.image = product.image
             logAll()
         }
+    }
+
+    override fun searchFilter(name: String) : List<OnlineshopModel> {
+        return products.filter { p -> p.name.contains(name) }
     }
 
     fun logAll() {

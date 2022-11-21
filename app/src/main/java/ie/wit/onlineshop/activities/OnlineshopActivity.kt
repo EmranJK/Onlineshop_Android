@@ -1,6 +1,7 @@
 package ie.wit.onlineshop.activities
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -75,10 +76,17 @@ class OnlineshopActivity : AppCompatActivity() {
             //binding.productId.setText(product.id)
             binding.productPrice.setText(product.price.toString())
             binding.btnAdd.setText(R.string.save_product)
+
             Picasso.get()
                 .load(product.image)
                 .into(binding.productImage)
+            if (product.image != Uri.EMPTY) {
+                binding.chooseImage.setText(R.string.change_product_image)
+            }
         }
+
+
+
 
         binding.btnAdd.setOnClickListener() {
             product.name = binding.productName.text.toString()
@@ -123,6 +131,7 @@ class OnlineshopActivity : AppCompatActivity() {
                             Picasso.get()
                                 .load(product.image)
                                 .into(binding.productImage)
+                            binding.chooseImage.setText(R.string.change_product_image)
                         } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }

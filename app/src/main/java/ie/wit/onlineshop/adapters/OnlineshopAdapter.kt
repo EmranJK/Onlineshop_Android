@@ -3,6 +3,7 @@ package ie.wit.onlineshop.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import ie.wit.onlineshop.databinding.CardProductBinding
 import ie.wit.onlineshop.models.OnlineshopModel
 
@@ -36,6 +37,8 @@ class OnlineshopAdapter constructor(private var products: List<OnlineshopModel>,
             binding.productPrice.text = product.price.toString()
             binding.productBrand.text = product.brand
             binding.productType.text = product.type
+            Picasso.get().load(product.image).resize(200,200).into(binding.imageIcon)
+            //binding.root.setOnClickListener { listener.onPlacemarkClick(placemark) }
             // product.name = binding.productName.text.toString()
             // product.id = binding.productId.text.toString().toInt()
             binding.root.setOnClickListener { listener.onProductClick(product) }

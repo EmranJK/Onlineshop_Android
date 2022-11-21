@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +24,7 @@ class ProductListActivity : AppCompatActivity(), OnlineshopListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityProductListBinding
+    lateinit var searchFilter: SearchView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,11 +32,35 @@ class ProductListActivity : AppCompatActivity(), OnlineshopListener {
         setContentView(binding.root)
         binding.toolbar.title = title
         setSupportActionBar(binding.toolbar)
+        //searchFilter = findViewById(R.id.app_bar_search)
+
 
         app = application as MainApp
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
+//        // on below line we are adding on query
+//        // listener for our search view.
+//        searchFilter.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                // on below line we are checking
+//                // if query exist or not.
+//
+//                return false
+//            }
+//            override fun onQueryTextChange(newText: String?): Boolean {
+//                // if query text is change in that case we
+//                // are filtering our adapter with
+//                // new text on below line.
+//                val str:String
+//                if(newText.isNullOrBlank())
+//                    str = ""
+//                else str = newText
+//                //binding.recyclerView.adapter =)
+//                return true
+//            }
+//        })
+
         //binding.recyclerView.adapter = OnlineshopAdapter(app.products)
         binding.recyclerView.adapter = OnlineshopAdapter(app.products.findAll(),this)
     }
