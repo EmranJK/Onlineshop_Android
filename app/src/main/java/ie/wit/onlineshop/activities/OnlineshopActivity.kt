@@ -19,6 +19,7 @@ import ie.wit.onlineshop.R
 import ie.wit.onlineshop.databinding.ActivityOnlineshopBinding
 import ie.wit.onlineshop.helpers.showImagePicker
 import ie.wit.onlineshop.main.MainApp
+import ie.wit.onlineshop.models.Location
 import ie.wit.onlineshop.models.OnlineshopModel
 import timber.log.Timber
 import timber.log.Timber.i
@@ -28,6 +29,8 @@ class OnlineshopActivity : AppCompatActivity() {
     var product = OnlineshopModel()
     lateinit var app: MainApp
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
+    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+    //var location = Location(52.245696, -7.139102, 15f)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,7 @@ class OnlineshopActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         registerImagePickerCallback()
+        registerMapCallback()
 
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
@@ -86,7 +90,17 @@ class OnlineshopActivity : AppCompatActivity() {
         }
 
 
-
+        binding.providerLocation.setOnClickListener {
+            val location = Location(52.245696, -7.139102, 15f)
+            if (product.zoom != 0f) {
+                location.lat =  product.providerLat
+                location.lng = product.providerLng
+                location.zoom = product.zoom
+            }
+            val launcherIntent = Intent(this, MapActivity::class.java)
+                .putExtra("location", location)
+            mapIntentLauncher.launch(launcherIntent)
+        }
 
         binding.btnAdd.setOnClickListener() {
             product.name = binding.productName.text.toString()
@@ -138,6 +152,27 @@ class OnlineshopActivity : AppCompatActivity() {
                 }
             }
     }
+
+    private fun registerMapCallback() {
+        mapIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when (result.resultCode) {
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            i("Got Location ${result.data.toString()}")
+                            val location = result.data!!.extras?.getParcelable<Location>("location")!!
+                            i("Location == $location")
+                            product.providerLat = location.lat
+                            product.providerLng = location.lng
+                            product.zoom = location.zoom
+                        } // end of if
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
+    }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

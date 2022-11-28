@@ -29,6 +29,9 @@ class OnlineshopMemStore : OnlineshopStore {
             foundProduct.brand = product.brand
             foundProduct.type = product.type
             foundProduct.image = product.image
+            foundProduct.providerLat = product.providerLat
+            foundProduct.providerLng = product.providerLng
+            foundProduct.zoom = product.zoom
             logAll()
         }
     }

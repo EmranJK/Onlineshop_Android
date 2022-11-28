@@ -6,8 +6,14 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class OnlineshopModel(var id: Long = 0,
+
                            var name: String = "",
                            var price: Double = 0.0,
                            var brand: String = "",
                            var type: String = "",
-                           var image: Uri = Uri.EMPTY) : Parcelable
+
+                           var image: Uri = Uri.EMPTY,
+                           var providerLat : Double = 0.0,
+                           var providerLng: Double = 0.0,
+                           var zoom: Float = 0f) : Parcelable
+

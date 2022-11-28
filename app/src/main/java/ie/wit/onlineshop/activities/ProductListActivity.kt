@@ -25,6 +25,7 @@ class ProductListActivity : AppCompatActivity(), OnlineshopListener {
     lateinit var app: MainApp
     private lateinit var binding: ActivityProductListBinding
     lateinit var searchFilter: SearchView
+    lateinit var adapter: OnlineshopAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +33,7 @@ class ProductListActivity : AppCompatActivity(), OnlineshopListener {
         setContentView(binding.root)
         binding.toolbar.title = title
         setSupportActionBar(binding.toolbar)
-        //searchFilter = findViewById(R.id.app_bar_search)
+        searchFilter = findViewById(R.id.searchProduct)
 
 
         app = application as MainApp
@@ -61,8 +62,19 @@ class ProductListActivity : AppCompatActivity(), OnlineshopListener {
 //            }
 //        })
 
+        searchFilter.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.filter.filter(newText)
+                return false
+            }
+        })
         //binding.recyclerView.adapter = OnlineshopAdapter(app.products)
-        binding.recyclerView.adapter = OnlineshopAdapter(app.products.findAll(),this)
+        adapter = OnlineshopAdapter(app.products.findAll(),this)
+        binding.recyclerView.adapter = adapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
