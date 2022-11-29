@@ -13,7 +13,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 interface OnlineshopListener {
-    fun onProductClick(product: OnlineshopModel)
+    fun onProductClick(product: OnlineshopModel, position : Int)
 }
 
 class OnlineshopAdapter constructor(private var products: List<OnlineshopModel>,
@@ -56,7 +56,7 @@ class OnlineshopAdapter constructor(private var products: List<OnlineshopModel>,
             //binding.root.setOnClickListener { listener.onPlacemarkClick(placemark) }
             // product.name = binding.productName.text.toString()
             // product.id = binding.productId.text.toString().toInt()
-            binding.root.setOnClickListener { listener.onProductClick(product) }
+            binding.root.setOnClickListener { listener.onProductClick(product, adapterPosition) }
         }
     }
 

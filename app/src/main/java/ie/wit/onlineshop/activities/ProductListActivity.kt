@@ -26,6 +26,7 @@ class ProductListActivity : AppCompatActivity(), OnlineshopListener {
     private lateinit var binding: ActivityProductListBinding
     lateinit var searchFilter: SearchView
     lateinit var adapter: OnlineshopAdapter
+    private var position: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,9 +93,10 @@ class ProductListActivity : AppCompatActivity(), OnlineshopListener {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onProductClick(product: OnlineshopModel) {
+    override fun onProductClick(product: OnlineshopModel, pos : Int) {
         val launcherIntent = Intent(this, OnlineshopActivity::class.java)
         launcherIntent.putExtra("product_edit", product)
+        position = pos
         getClickResult.launch(launcherIntent)
     }
 
@@ -106,6 +108,9 @@ class ProductListActivity : AppCompatActivity(), OnlineshopListener {
                 (binding.recyclerView.adapter)?.
                 notifyItemRangeChanged(0,app.products.findAll().size)
             }
+            else // Deleting
+                if (it.resultCode == 99)
+                        (binding.recyclerView.adapter)?.notifyItemRemoved(position)
         }
 
     private val getResult =

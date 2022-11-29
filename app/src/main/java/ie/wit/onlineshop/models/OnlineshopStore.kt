@@ -5,4 +5,5 @@ interface OnlineshopStore {
     fun create(product: OnlineshopModel)
     fun update(product: OnlineshopModel)
     fun searchFilter(name: String): List<OnlineshopModel>
+    fun delete(product: OnlineshopModel)
 }

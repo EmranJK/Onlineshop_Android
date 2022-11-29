@@ -36,6 +36,10 @@ class OnlineshopMemStore : OnlineshopStore {
         }
     }
 
+    override fun delete(product: OnlineshopModel) {
+        products.remove(product)
+    }
+
     override fun searchFilter(name: String) : List<OnlineshopModel> {
         return products.filter { p -> p.name.contains(name) }
     }

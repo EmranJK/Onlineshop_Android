@@ -30,11 +30,12 @@ class OnlineshopActivity : AppCompatActivity() {
     lateinit var app: MainApp
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+    var edit = false
     //var location = Location(52.245696, -7.139102, 15f)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var edit = false
+
         binding = ActivityOnlineshopBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -124,12 +125,13 @@ class OnlineshopActivity : AppCompatActivity() {
         }
         binding.chooseImage.setOnClickListener {
             //i("Select image")
-            showImagePicker(imageIntentLauncher)
+            showImagePicker(imageIntentLauncher,this)
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_product, menu)
+        if (edit) menu.getItem(0).isVisible = true
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -141,7 +143,12 @@ class OnlineshopActivity : AppCompatActivity() {
                     RESULT_OK -> {
                         if (result.data != null) {
                             i("Got Result ${result.data!!.data}")
-                            product.image = result.data!!.data!!
+
+                            val image = result.data!!.data!!
+                            contentResolver.takePersistableUriPermission(image,
+                                Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                            product.image = image
+
                             Picasso.get()
                                 .load(product.image)
                                 .into(binding.productImage)
@@ -176,9 +183,13 @@ class OnlineshopActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item_cancel -> {
+            R.id.item_delete -> {
+                setResult(99)
+                app.products.delete(product)
+                //setResult(RESULT_OK)
                 finish()
             }
+            R.id.item_cancel -> {  finish()  }
         }
         return super.onOptionsItemSelected(item)
     }
