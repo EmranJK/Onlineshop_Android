@@ -53,9 +53,6 @@ class OnlineshopAdapter constructor(private var products: List<OnlineshopModel>,
             binding.productBrand.text = product.brand
             binding.productType.text = product.type
             Picasso.get().load(product.image).resize(200,200).into(binding.imageIcon)
-            //binding.root.setOnClickListener { listener.onPlacemarkClick(placemark) }
-            // product.name = binding.productName.text.toString()
-            // product.id = binding.productId.text.toString().toInt()
             binding.root.setOnClickListener { listener.onProductClick(product, adapterPosition) }
         }
     }
@@ -67,14 +64,6 @@ class OnlineshopAdapter constructor(private var products: List<OnlineshopModel>,
                 if (charSearch.isEmpty()) {
                     productFilterList = products
                 } else {
-//                    val resultList = ArrayList<String>()
-//                    for (row in products) {
-//                        if (row.lowercase(Locale.ROOT)
-//                                .contains(charSearch.lowercase(Locale.ROOT))
-//                        ) {
-//                            resultList.add(row)
-//                        }
-//                    }
                     productFilterList = products.filter { p -> p.name.contains(charSearch) }
                 }
                 val filterResults = FilterResults()

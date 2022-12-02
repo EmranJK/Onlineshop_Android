@@ -9,6 +9,8 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
@@ -23,12 +25,17 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
     private lateinit var map: GoogleMap
     private lateinit var binding: ActivityMapBinding
     private var location = Location()
+    private var supply = ""
+    private var prodType = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMapBinding.inflate(layoutInflater)
         setContentView(binding.root)
         location = intent.extras?.getParcelable<Location>("location")!!
+        supply = intent.extras?.getString("supply").toString()
+        prodType = intent.extras?.getString("prodType").toString()
+
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -37,10 +44,23 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
         map = googleMap
         val loc = LatLng(location.lat, location.lng)
         val options = MarkerOptions()
-            .title("Provider Location")
-            .snippet("GPS : $loc")
-            .draggable(true)
-            .position(loc)
+        if (prodType.equals("Drink")) {
+            options
+                .title(supply + " provider location")
+                .snippet("GPS : $loc")
+                .draggable(true)
+                .position(loc)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+        }
+        else{
+            options
+                .title(supply + " provider location")
+                .snippet("GPS : $loc")
+                .draggable(true)
+                .position(loc)
+        }
+
+
         map.addMarker(options)
         map.setOnMarkerClickListener(this)
         map.setOnMarkerDragListener(this)

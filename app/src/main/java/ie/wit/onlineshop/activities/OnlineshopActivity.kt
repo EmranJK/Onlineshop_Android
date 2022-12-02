@@ -98,8 +98,9 @@ class OnlineshopActivity : AppCompatActivity() {
                 location.lng = product.providerLng
                 location.zoom = product.zoom
             }
+
             val launcherIntent = Intent(this, MapActivity::class.java)
-                .putExtra("location", location)
+                .putExtra("location", location).putExtra("supply", product.name).putExtra("prodType", product.type)
             mapIntentLauncher.launch(launcherIntent)
         }
 
