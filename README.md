@@ -1,5 +1,7 @@
 # Onlineshop_Android
 
+NOTE: In the demo video I make a small mistake when I say that the price field of the Onlineshop model is of type float, but it is actually of type double.
+
 In this assignment I create an Onlineshop Android app that an Onlineshop owner can use to add, update, delete, list, search and filter grocery products in his/her shop. The owner can add a name, price, brand, type, image and provider location (provider longitude, provider latitude, zoom) to his/her products. The product ID is randomly generated.
 
 Resources:
