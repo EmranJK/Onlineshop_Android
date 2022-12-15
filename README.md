@@ -1,6 +1,6 @@
 # Onlineshop_Android
 
-NOTE: In the demo video I make a small mistake when I say that the price field of the Onlineshop model is of type float, but it is actually of type double.
+NOTE: In the demo video I made a small mistake when I said that the price field of the Onlineshop model is of type float, but it is actually of type double.
 
 In this assignment I create an Onlineshop Android app that an Onlineshop owner can use to add, update, delete, list, search and filter grocery products in his/her shop. The owner can add a name, price, brand, type, image and provider location (provider longitude, provider latitude, zoom) to his/her products. The product ID is randomly generated.
 
@@ -9,7 +9,7 @@ Resources:
 Spinner: https://www.geeksforgeeks.org/spinner-in-kotlin/
 
 Gradient Colouring:
-https://learntodroid.com/how-to-add-a-gradient-background-to-an-android-app/
+https://learntodroid.com/how-to-add-a-gradient-background-to-an-android-app/ Colour combinations from: https://gradientbuttons.colorion.co/
 
 Rounded Corners: https://medium.com/swlh/rounded-button-in-android-studios-fbd1ee0b3161
 
